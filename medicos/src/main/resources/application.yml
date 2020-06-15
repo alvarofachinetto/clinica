@@ -1,0 +1,11 @@
+spring:
+  h2:
+    console:
+      enabled: true
+      path: /medico/h2
+      
+  datasource:
+    url: jdbc:h2:mem:medicos
+    
+server:
+  port: 8081
