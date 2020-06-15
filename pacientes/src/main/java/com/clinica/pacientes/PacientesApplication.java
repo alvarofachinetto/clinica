@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.cloud.netflix.eureka.EnableEurekaClient;
 
 import com.clinica.pacientes.model.Paciente;
 import com.clinica.pacientes.model.Sexo;
@@ -15,6 +16,7 @@ import com.clinica.pacientes.repository.PacienteRepository;
 import net.bytebuddy.utility.RandomString;
 
 @SpringBootApplication
+@EnableEurekaClient
 public class PacientesApplication implements CommandLineRunner{
 
 	@Autowired
