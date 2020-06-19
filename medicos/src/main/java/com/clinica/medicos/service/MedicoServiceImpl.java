@@ -34,12 +34,12 @@ public class MedicoServiceImpl implements MedicoService{
 	}
 
 	@Override
-	public MedicoDTO findByCrm(String crm) throws ObjectNotFoundException {
-		return medicoRepository.findByCrm(crm)
+	public MedicoDTO findByCod(String cod) throws ObjectNotFoundException {
+		return medicoRepository.findById(cod)
 				.map(medico -> MedicoConvert.toMedicoDto(medico))
 				.orElseThrow(() -> new ObjectNotFoundException("medico não encontrado"));
 	}
-
+	
 	@Override
 	public MedicoDTO atualizaMedico(MedicoDTO medicoDto) {
 		if(medicoRepository.findById(medicoDto.getCod()).isPresent()) {

@@ -39,10 +39,11 @@ public class MedicoResource {
 				.body(medicoService.listarMedicos(pageable));
 	}
 	
-	@GetMapping("/{crm}")
-	public ResponseEntity<MedicoDTO> buscarPorCPF(@PathVariable("crm") String crm) throws ObjectNotFoundException{
+	@GetMapping("/{cod}")
+	public ResponseEntity<MedicoDTO> buscarPorCodigo(@PathVariable String cod) throws ObjectNotFoundException{
+		MedicoDTO medicoDTO = medicoService.findByCod(cod);
 		return ResponseEntity.status(HttpStatus.OK)
-				.body(medicoService.findByCrm(crm));
+				.body(medicoDTO);
 	}
 	
 	@PostMapping

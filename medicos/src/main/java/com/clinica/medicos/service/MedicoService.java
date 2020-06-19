@@ -13,7 +13,7 @@ public interface MedicoService {
 	
 	public MedicoDTO cadastraMedico(MedicoDTO medicoDto);
 	
-	public MedicoDTO findByCrm(String crm) throws ObjectNotFoundException;
+	public MedicoDTO findByCod(String cod) throws ObjectNotFoundException;
 	
 	public MedicoDTO atualizaMedico(MedicoDTO medicoDto);
 	
