@@ -20,12 +20,6 @@ public class PacienteServiceImpl implements PacienteService{
 	private PacienteRepository pacienteRepo;
 	
 	@Override
-	public Page<PacienteDTO> filtraPacientes(String name, Pageable pageable) {
-		var page = pacienteRepo.filtraPorNome(name, pageable);
-		return page.map(paciente -> ConvertPaciente.ToPacienteDTO(paciente));
-	}
-	
-	@Override
 	public Page<PacienteDTO> listarPacientes(Pageable pageable){
 		return pacienteRepo.findAll(pageable)
 				.map(paciente -> ConvertPaciente.ToPacienteDTO(paciente));
@@ -42,8 +36,8 @@ public class PacienteServiceImpl implements PacienteService{
 	}
 
 	@Override
-	public PacienteDTO findByCpf(String cpf) throws ObjectNotFoundException {
-		Paciente paciente = pacienteRepo.findByCpf(cpf)
+	public PacienteDTO findByCod(String cod) throws ObjectNotFoundException {
+		Paciente paciente = pacienteRepo.findById(cod)
 				.orElseThrow(() -> new ObjectNotFoundException("Paciente não exixtente"));
 		return ConvertPaciente.ToPacienteDTO(paciente);
 	}

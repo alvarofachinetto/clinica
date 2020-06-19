@@ -41,10 +41,10 @@ public class PacienteResource {
 				.body(pacienteService.listarPacientes(pageable));
 	}
 	
-	@GetMapping("/{cpf}")
-	public ResponseEntity<PacienteDTO> buscarPorCPF(@PathVariable("cpf") String cpf) throws ObjectNotFoundException{
+	@GetMapping("/{cod}")
+	public ResponseEntity<PacienteDTO> buscarPorCodigo(@PathVariable String cod) throws ObjectNotFoundException{
 		return ResponseEntity.status(HttpStatus.OK)
-				.body(pacienteService.findByCpf(cpf));
+				.body(pacienteService.findByCod(cod));
 	}
 	
 	@PostMapping
