@@ -5,7 +5,11 @@ import java.time.LocalDateTime;
 
 import com.clinica.consultas.model.Endereco;
 import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonProperty.Access;
+import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 
+@JsonPropertyOrder(value = {"cod", "data", "local", "paciente", "info_paciente", "medico", "info_medico", "observacao"})
 public class ConsultaDTO implements Serializable{
 
 	private static final long serialVersionUID = 1L;
@@ -15,24 +19,33 @@ public class ConsultaDTO implements Serializable{
 	@JsonFormat(pattern = "dd/MM/yyyy:HH:mm")
 	private LocalDateTime data;
 	
+	@JsonProperty("local")
 	private Endereco endereco;
 	
-	private String medico;
+	@JsonProperty(value = "medico")
+	private String codMedico;
 	
-	private String paciente;
+	@JsonProperty("paciente")
+	private String codPaciente;
+
+	@JsonProperty(value = "info_medico", access = Access.READ_ONLY)
+	private InfoMedicoDTO infoMedicoDTO;
+	
+	@JsonProperty(value = "info_paciente", access = Access.READ_ONLY)
+	private InfoPacienteDTO infoPacienteDTO; 
 	
 	private String observacoes;
 
 	public ConsultaDTO() {}
 	
-	public ConsultaDTO(String cod, LocalDateTime data, Endereco endereco, String medico, String paciente,
+	public ConsultaDTO(String cod, LocalDateTime data, Endereco endereco, String codMedico, String codPaciente,
 			String observacoes) {
 		super();
 		this.cod = cod;
 		this.data = data;
 		this.endereco = endereco;
-		this.medico = medico;
-		this.paciente = paciente;
+		this.codMedico = codMedico;
+		this.codPaciente = codPaciente;
 		this.observacoes = observacoes;
 	}
 
@@ -52,20 +65,20 @@ public class ConsultaDTO implements Serializable{
 		this.endereco = endereco;
 	}
 
-	public String getMedico() {
-		return medico;
+	public String getCodMedico() {
+		return codMedico;
 	}
 
-	public void setMedico(String medico) {
-		this.medico = medico;
+	public void setCodMedico(String codMedico) {
+		this.codMedico = codMedico;
 	}
 
-	public String getPaciente() {
-		return paciente;
+	public String getCodPaciente() {
+		return codPaciente;
 	}
 
-	public void setPaciente(String paciente) {
-		this.paciente = paciente;
+	public void setCodPaciente(String paciente) {
+		this.codPaciente = paciente;
 	}
 
 	public String getObservacoes() {
@@ -83,7 +96,21 @@ public class ConsultaDTO implements Serializable{
 	public void setData(LocalDateTime data) {
 		this.data = data;
 	}
-	
-	
+
+	public InfoMedicoDTO getInfoMedicoDTO() {
+		return infoMedicoDTO;
+	}
+
+	public void setInfoMedicoDTO(InfoMedicoDTO infoMedicoDTO) {
+		this.infoMedicoDTO = infoMedicoDTO;
+	}
+
+	public InfoPacienteDTO getInfoPacienteDTO() {
+		return infoPacienteDTO;
+	}
+
+	public void setInfoPacienteDTO(InfoPacienteDTO infoPacienteDTO) {
+		this.infoPacienteDTO = infoPacienteDTO;
+	}
 	
 }

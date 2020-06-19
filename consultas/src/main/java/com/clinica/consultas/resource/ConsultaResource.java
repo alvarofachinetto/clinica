@@ -15,7 +15,11 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.clinica.consultas.client.MedicoClient;
+import com.clinica.consultas.client.PacienteClient;
 import com.clinica.consultas.dto.ConsultaDTO;
+import com.clinica.consultas.dto.InfoMedicoDTO;
+import com.clinica.consultas.dto.InfoPacienteDTO;
 import com.clinica.consultas.service.ConsultaService;
 
 import javassist.tools.rmi.ObjectNotFoundException;
@@ -27,26 +31,45 @@ public class ConsultaResource {
 	@Autowired
 	private ConsultaService consultaService;
 	
+	@Autowired
+	private MedicoClient medicoClient;
+	
+	@Autowired
+	private PacienteClient pacienteClient;
+	
 	@GetMapping
 	public ResponseEntity<Page<ConsultaDTO>> consultas(
 		@RequestParam("number") int number,
 		@RequestParam("limit") int limit){
-		
 		Pageable pageable = PageRequest.of(number, limit);
 		
-		return ResponseEntity.ok().body(consultaService.consultas(pageable));
+		Page<ConsultaDTO> consultas = consultaService.consultas(pageable).map(consulta -> {
+			consulta.setInfoMedicoDTO(requisicaoMedico(consulta));
+			consulta.setInfoPacienteDTO(requisicaoPaciente(consulta));
+			return consulta;
+		});
+		
+		return ResponseEntity.ok().body(consultas);
 	}
 	
 	@GetMapping("/{cod}")
 	public ResponseEntity<ConsultaDTO> findByCod(@PathVariable String cod) throws ObjectNotFoundException{
+		ConsultaDTO consultaDTO = consultaService.findByCod(cod);
+		consultaDTO.setInfoMedicoDTO(requisicaoMedico(consultaDTO));
+		consultaDTO.setInfoPacienteDTO(requisicaoPaciente(consultaDTO));
+		
 		return ResponseEntity.ok()
-				.body(consultaService.findByCod(cod));
+				.body(consultaDTO);
 	}
 	
 	@PostMapping
 	public ResponseEntity<ConsultaDTO> marcaConsulta(@RequestBody ConsultaDTO consultaDTO){
-		return ResponseEntity.status(HttpStatus.CREATED)
-				.body(consultaService.marcaConsulta(consultaDTO));
+		if(requisicaoMedico(consultaDTO) != null && requisicaoPaciente(consultaDTO) != null)
+			return ResponseEntity.status(HttpStatus.CREATED)
+					.body(consultaService.marcaConsulta(consultaDTO));
+		
+		return ResponseEntity.badRequest().build();
+		
 	}
 	
 	@DeleteMapping("/{cod}")
@@ -54,5 +77,13 @@ public class ConsultaResource {
 		consultaService.cancelaConsulta(cod);
 		return ResponseEntity.status(HttpStatus.NO_CONTENT)
 				.build();
+	}
+	
+	private InfoMedicoDTO requisicaoMedico(ConsultaDTO consultaDTO) {
+		return medicoClient.buscaMedico(consultaDTO.getCodMedico());
+	}
+	
+	private InfoPacienteDTO requisicaoPaciente(ConsultaDTO consultaDTO) {
+		return pacienteClient.buscarPaciente(consultaDTO.getCodPaciente());
 	}
 }

@@ -20,27 +20,24 @@ public class Consulta implements Serializable{
 	@OneToOne
 	private Endereco endereco;
 	
-	private String medico;
+	private String codMedico;
 	
-	private String paciente;
+	private String codPaciente;
 	
 	private String observacoes;
 	
 	public Consulta() {}
 
-	public Consulta(String cod, LocalDateTime data, Endereco endereco, String medico, String paciente,
+	public Consulta(String cod, LocalDateTime data, Endereco endereco, String codMedico, String codPaciente,
 			String observacoes) {
 		super();
 		this.cod = cod;
 		this.data = data;
 		this.endereco = endereco;
-		this.medico = medico;
-		this.paciente = paciente;
+		this.codMedico = codMedico;
+		this.codPaciente = codPaciente;
 		this.observacoes = observacoes;
 	}
-
-
-
 
 	public String getCod() {
 		return cod;
@@ -58,20 +55,20 @@ public class Consulta implements Serializable{
 		this.endereco = endereco;
 	}
 
-	public String getMedico() {
-		return medico;
+	public String getCodMedico() {
+		return codMedico;
 	}
 
-	public void setMedico(String medico) {
-		this.medico = medico;
+	public void setCodMedico(String medico) {
+		this.codMedico = medico;
 	}
 
-	public String getPaciente() {
-		return paciente;
+	public String getCodPaciente() {
+		return codPaciente;
 	}
 
-	public void setPaciente(String paciente) {
-		this.paciente = paciente;
+	public void setCodPaciente(String paciente) {
+		this.codPaciente = paciente;
 	}
 
 	public String getObservacoes() {
