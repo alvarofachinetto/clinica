@@ -1,14 +1,3 @@
-spring:
-  h2:
-    console:
-      enabled: true
-      path: /paciente/h2
-      
-  datasource:
-    url: jdbc:h2:mem:pacientes
-  application:
-    name: paciente
-    
 server:
   port: 8081
   

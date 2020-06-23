@@ -1,0 +1,6 @@
+spring:
+  application:
+    name: pacientes
+  cloud:
+    config:
+      uri: http://localhost:8888 
