@@ -7,7 +7,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 
 import com.clinica.consultas.dto.InfoPacienteDTO;
 
-@FeignClient("paciente")
+@FeignClient("pacientes")
 public interface PacienteClient {
 
 	@RequestMapping(method = RequestMethod.GET, path = "/pacientes/{cod}")

@@ -40,7 +40,7 @@ public class MedicosApplication implements CommandLineRunner{
 		);
 		
 		Medico medico = 
-			new Medico(RandomString.make(10), "Carlos Souza", "0000000", especialidades, 
+			new Medico("1", "Carlos Souza", "0000000", especialidades, 
 					"3964-2548", "ruancardoso@clinica.com.br", LocalDate.of(2011, 05, 16));
 		especiaidadeRepository.saveAll(especialidades);
 		medicoRepository.save(medico);

@@ -29,7 +29,7 @@ public class PacientesApplication implements CommandLineRunner{
 	@Override
 	public void run(String... args) throws Exception {
 		List<Paciente> pacientes = List.of(
-			new Paciente(RandomString.make(15), "Catarina Ramos", "458.896.694-97", LocalDate.of(1996, 05, 15), Sexo.FEMININO),
+			new Paciente("1", "Catarina Ramos", "458.896.694-97", LocalDate.of(1996, 05, 15), Sexo.FEMININO),
 			new Paciente(RandomString.make(15), "João da Silva Frenes", "154.964.744-12", LocalDate.of(1992, 01, 8), Sexo.MASCULINO),
 			new Paciente(RandomString.make(15), "Ednaldo Denver", "964.227.841-98", LocalDate.of(1983, 10, 29), Sexo.MASCULINO),
 			new Paciente(RandomString.make(15), "Dinner Freire", "658.941.520-78", LocalDate.of(1975, 11, 12), Sexo.MASCULINO),

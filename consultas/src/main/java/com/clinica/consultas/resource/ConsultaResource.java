@@ -39,9 +39,9 @@ public class ConsultaResource {
 	
 	@GetMapping
 	public ResponseEntity<Page<ConsultaDTO>> consultas(
-		@RequestParam("number") int number,
+		@RequestParam("page") int page,
 		@RequestParam("limit") int limit){
-		Pageable pageable = PageRequest.of(number, limit);
+		Pageable pageable = PageRequest.of(page, limit);
 		
 		Page<ConsultaDTO> consultas = consultaService.consultas(pageable).map(consulta -> {
 			consulta.setInfoMedicoDTO(requisicaoMedico(consulta));
