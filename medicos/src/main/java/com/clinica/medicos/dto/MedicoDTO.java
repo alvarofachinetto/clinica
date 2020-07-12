@@ -2,7 +2,7 @@ package com.clinica.medicos.dto;
 
 import java.io.Serializable;
 import java.time.LocalDate;
-import java.util.List;
+import java.util.Set;
 
 import com.clinica.medicos.model.Especialidade;
 import com.fasterxml.jackson.annotation.JsonFormat;
@@ -24,12 +24,12 @@ public class MedicoDTO implements Serializable{
 	@JsonFormat(pattern = "dd/MM/yyyy")
 	private LocalDate dataContratacao;
 	
-	private List<Especialidade> especialidades;
+	private Set<Especialidade> especialidades;
 
 	public MedicoDTO() {}
 	
 	public MedicoDTO(String cod, String nome, String crm, String telefone, String email, LocalDate dataContratacao,
-			List<Especialidade> especialidades) {
+			Set<Especialidade> especialidades) {
 		super();
 		this.cod = cod;
 		this.nome = nome;
@@ -90,8 +90,10 @@ public class MedicoDTO implements Serializable{
 		this.dataContratacao = dataContratacao;
 	}
 
-	public List<Especialidade> getEspecialidades() {
+	public Set<Especialidade> getEspecialidades() {
 		return especialidades;
 	}
+	
+	
 
 }

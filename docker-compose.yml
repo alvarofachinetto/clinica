@@ -1,0 +1,60 @@
+version: '3.3'
+
+services: 
+    config-server:
+        image: alvaro2019/config-server
+        mem_limit: 512M
+        ports: 
+            - 8888:8888
+    eureka-server:
+        image: alvaro2019/eureka-server
+        container_name: eureka-server
+        mem_limit: 512M
+        depends_on: 
+            - config-server
+        entrypoint: ["./dockerize","-wait=tcp://conif-server:8888","-timeout=60s","--","java","org.springframework.boot.loader.JarLauncher"]
+        ports: 
+            - 8761:8761
+    pacientes:
+        image: alvaro2019/pacientes
+        container_name: pacientes
+        mem_limit: 512M
+        depends_on: 
+            - config-server
+            - eureka-server
+        entrypoint: ["./dockerize","-wait=tcp://eureka-server:8761","-timeout=60s","--","java","org.springframework.boot.loader.JarLauncher"]
+        ports: 
+            -8081:8081
+    medicos:
+        image: alvaro2019/medicos
+        container_name: medicos
+        mem_limit: 512M
+        depends_on: 
+            - config-server
+            - eureka-server
+        entrypoint: ["./dockerize","-wait=tcp://eureka-server:8761","-timeout=60s","--","java","org.springframework.boot.loader.JarLauncher"]
+        ports: 
+            -8082:8082
+    consultas:
+        image: alvaro2019/consultas
+        container_name: consultas
+        mem_limit: 512M
+        depends_on: 
+            - config-server
+            - eureka-server
+        entrypoint: ["./dockerize","-wait=tcp://eureka-server:8761","-timeout=60s","--","java","org.springframework.boot.loader.JarLauncher"]
+        ports: 
+            -8083:8083
+    cloud-gateway:
+        image: alvaro2019/gateway
+        container_name: gateway
+        mem_limit: 512M
+        depends_on: 
+            - config-server
+            - eureka-server
+        entrypoint: ["./dockerize","-wait=tcp://eureka-server:8761","-timeout=60s","--","java","org.springframework.boot.loader.JarLauncher"]
+        ports: 
+            -8989:8989
+    
+
+      

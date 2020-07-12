@@ -12,6 +12,6 @@ public class MedicoConvert {
 	
 	public static MedicoDTO toMedicoDto(Medico medico) {
 		return new MedicoDTO(medico.getCod(), medico.getNome(), 
-				medico.getCrm(), medico.getTelefone(), medico.getEmail(), medico.getDataContratacao(), medico.getEspecialidades());
+				medico.getCrm(),  medico.getTelefone(), medico.getEmail(), medico.getDataContratacao(), medico.getEspecialidades());
 	}
 }

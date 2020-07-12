@@ -2,12 +2,11 @@ package com.clinica.medicos.model;
 
 import java.io.Serializable;
 import java.time.LocalDate;
-import java.util.List;
+import java.util.Set;
 
+import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.Id;
-import javax.persistence.OneToMany;
 
 @Entity
 public class Medico implements Serializable{
@@ -27,15 +26,12 @@ public class Medico implements Serializable{
 
 	private LocalDate dataContratacao;
 
-	@OneToMany(fetch = FetchType.LAZY)
-	private List<Especialidade> especialidades;
-	
+	@ElementCollection
+	private Set<Especialidade> especialidades;
 	
 	public Medico() {}
 	
-	
-	
-	public Medico(String cod, String nome, String crm, List<Especialidade> especialidades, String telefone, String email,
+	public Medico(String cod, String nome, String crm, Set<Especialidade> especialidades, String telefone, String email,
 			LocalDate dataContratacao) {
 		super();
 		this.cod = cod;
@@ -73,7 +69,7 @@ public class Medico implements Serializable{
 		this.crm = crm;
 	}
 
-	public List<Especialidade> getEspecialidades() {
+	public Set<Especialidade> getEspecialidades() {
 		return especialidades;
 	}
 

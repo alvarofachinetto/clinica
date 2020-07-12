@@ -34,7 +34,7 @@ public class MedicoResource {
 			@RequestParam(value = "limit", defaultValue = "10") int limit){
 	
 		Pageable pageable = PageRequest.of(page, limit);
-	
+		
 		return ResponseEntity.status(HttpStatus.OK)
 				.body(medicoService.listarMedicos(pageable));
 	}

@@ -29,6 +29,7 @@ public class MedicoServiceImpl implements MedicoService{
 		if(medicoRepository.findByCrm(medicoDto.getCrm()).isPresent()) {
 			return null;
 		}
+		
 		medicoDto.setCod(RandomString.make(10));
 		return MedicoConvert.toMedicoDto(medicoRepository.save(MedicoConvert.toMedico(medicoDto)));
 	}
